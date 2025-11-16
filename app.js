@@ -22,6 +22,7 @@ class PersonalityAssessment {
         this.prevBtn = document.getElementById('prev-btn');
         this.nextBtn = document.getElementById('next-btn');
         this.downloadBtn = document.getElementById('download-btn');
+        this.downloadDataBtn = document.getElementById('download-data-btn');
         this.retakeBtn = document.getElementById('retake-btn');
 
         // Form
@@ -58,6 +59,7 @@ class PersonalityAssessment {
         this.nextBtn.addEventListener('click', () => this.nextQuestion());
 
         this.downloadBtn.addEventListener('click', () => this.downloadResults());
+        this.downloadDataBtn.addEventListener('click', () => this.downloadDataFile());
         this.retakeBtn.addEventListener('click', () => this.retakeAssessment());
     }
 
@@ -230,13 +232,13 @@ class PersonalityAssessment {
                         this.results.agreeableness,
                         this.results.neuroticism
                     ],
-                    backgroundColor: 'rgba(102, 126, 234, 0.2)',
-                    borderColor: '#667eea',
+                    backgroundColor: 'rgba(17, 153, 142, 0.2)',
+                    borderColor: '#11998e',
                     borderWidth: 3,
-                    pointBackgroundColor: '#667eea',
+                    pointBackgroundColor: '#11998e',
                     pointBorderColor: '#fff',
                     pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: '#667eea',
+                    pointHoverBorderColor: '#11998e',
                     pointRadius: 6,
                     pointHoverRadius: 8
                 }]
@@ -354,6 +356,33 @@ class PersonalityAssessment {
         const a = document.createElement('a');
         a.href = url;
         a.download = `personality-results-${this.studentInfo.name.replace(/\s+/g, '-')}-${new Date().toISOString().split('T')[0]}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+
+    downloadDataFile() {
+        // Create JSON data for comparison
+        const data = {
+            name: this.studentInfo.name,
+            age: this.studentInfo.age,
+            date: new Date().toISOString(),
+            scores: {
+                openness: this.results.openness,
+                conscientiousness: this.results.conscientiousness,
+                extraversion: this.results.extraversion,
+                agreeableness: this.results.agreeableness,
+                neuroticism: this.results.neuroticism
+            }
+        };
+
+        const jsonString = JSON.stringify(data, null, 2);
+        const blob = new Blob([jsonString], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `personality-data-${this.studentInfo.name.replace(/\s+/g, '-')}-${new Date().toISOString().split('T')[0]}.json`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
