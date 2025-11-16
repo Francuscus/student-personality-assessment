@@ -86,8 +86,7 @@ class PersonalityAssessment {
     saveStudentInfo() {
         this.studentInfo = {
             name: document.getElementById('student-name').value || 'Student',
-            age: document.getElementById('student-age').value || '',
-            grade: document.getElementById('student-grade').value || ''
+            age: document.getElementById('student-age').value || ''
         };
     }
 
@@ -191,9 +190,6 @@ class PersonalityAssessment {
         let greeting = `Great job, ${this.studentInfo.name}!`;
         if (this.studentInfo.age) {
             greeting += ` At ${this.studentInfo.age} years old`;
-        }
-        if (this.studentInfo.grade) {
-            greeting += ` in ${this.studentInfo.grade}`;
         }
         greeting += ', here is your personality profile:';
         this.studentGreeting.textContent = greeting;
@@ -331,7 +327,6 @@ class PersonalityAssessment {
         summary += `========================================\n\n`;
         summary += `Student: ${this.studentInfo.name}\n`;
         if (this.studentInfo.age) summary += `Age: ${this.studentInfo.age}\n`;
-        if (this.studentInfo.grade) summary += `Grade: ${this.studentInfo.grade}\n`;
         summary += `Date: ${new Date().toLocaleDateString()}\n\n`;
         summary += `PERSONALITY SCORES\n`;
         summary += `------------------\n\n`;
@@ -373,7 +368,6 @@ class PersonalityAssessment {
         // Clear form
         document.getElementById('student-name').value = '';
         document.getElementById('student-age').value = '';
-        document.getElementById('student-grade').value = '';
 
         // Show welcome screen
         this.showScreen('welcome');
