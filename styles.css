@@ -1,0 +1,396 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    line-height: 1.6;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+header {
+    text-align: center;
+    color: white;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* Cards */
+.card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+.card h2 {
+    color: #667eea;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+/* Screens */
+.screen {
+    display: none;
+}
+
+.screen.active {
+    display: block;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Welcome Screen */
+.trait-list {
+    list-style: none;
+    margin: 20px 0;
+}
+
+.trait-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 1.1rem;
+}
+
+.trait-list li:last-child {
+    border-bottom: none;
+}
+
+.trait-list strong {
+    color: #667eea;
+    font-size: 1.3rem;
+}
+
+.info-box {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    border-left: 4px solid #667eea;
+}
+
+.info-box h3 {
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+/* Buttons */
+.btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.btn.primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn.primary:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn.secondary {
+    background: #e9ecef;
+    color: #495057;
+}
+
+.btn.secondary:hover {
+    background: #dee2e6;
+}
+
+.btn.secondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #495057;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+/* Progress Bar */
+.progress-container {
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    background: #e9ecef;
+    border-radius: 10px;
+    height: 10px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.progress-fill {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    height: 100%;
+    width: 0%;
+    transition: width 0.5s ease;
+    border-radius: 10px;
+}
+
+#progress-text {
+    color: white;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Question Card */
+.question-card {
+    text-align: center;
+}
+
+.trait-indicator {
+    display: inline-block;
+    padding: 5px 15px;
+    background: #667eea;
+    color: white;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.question-card h3 {
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+/* Likert Scale */
+.likert-scale {
+    margin: 20px 0;
+}
+
+.scale-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.scale-options {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.scale-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 3px solid #dee2e6;
+    background: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.scale-btn:hover {
+    border-color: #667eea;
+    transform: scale(1.1);
+}
+
+.scale-btn.selected {
+    background: #667eea;
+    border-color: #667eea;
+    color: white;
+    transform: scale(1.15);
+}
+
+/* Navigation */
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Results Screen */
+.chart-container {
+    margin: 30px 0;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+#student-greeting {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.trait-results {
+    margin: 30px 0;
+}
+
+.trait-result {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    border-left: 4px solid;
+}
+
+.trait-result.openness { border-left-color: #FF6384; }
+.trait-result.conscientiousness { border-left-color: #36A2EB; }
+.trait-result.extraversion { border-left-color: #FFCE56; }
+.trait-result.agreeableness { border-left-color: #4BC0C0; }
+.trait-result.neuroticism { border-left-color: #9966FF; }
+
+.trait-result h4 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.trait-score {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+.trait-description {
+    color: #666;
+    line-height: 1.6;
+}
+
+.score-bar {
+    background: #e9ecef;
+    border-radius: 10px;
+    height: 8px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.score-fill {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 1s ease;
+}
+
+.score-fill.openness { background: #FF6384; }
+.score-fill.conscientiousness { background: #36A2EB; }
+.score-fill.extraversion { background: #FFCE56; }
+.score-fill.agreeableness { background: #4BC0C0; }
+.score-fill.neuroticism { background: #9966FF; }
+
+/* Actions */
+.actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    color: white;
+    opacity: 0.8;
+    margin-top: 30px;
+    padding: 20px;
+}
+
+footer p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    .scale-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    .scale-options {
+        gap: 10px;
+    }
+
+    .navigation {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}
