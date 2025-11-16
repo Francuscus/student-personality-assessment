@@ -347,6 +347,21 @@ header h1 {
     flex-wrap: wrap;
 }
 
+.compare-link {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.compare-link a {
+    color: #11998e;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.compare-link a:hover {
+    text-decoration: underline;
+}
+
 /* Footer */
 footer {
     text-align: center;

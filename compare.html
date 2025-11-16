@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Personality Results</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .compare-container {
+            margin-top: 20px;
+        }
+
+        .input-slot {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #ccc;
+        }
+
+        .input-slot.active {
+            border-left-color: var(--slot-color);
+        }
+
+        .input-slot h4 {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .color-indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .input-slot textarea {
+            width: 100%;
+            height: 120px;
+            padding: 10px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            resize: vertical;
+        }
+
+        .input-slot textarea:focus {
+            outline: none;
+            border-color: #11998e;
+        }
+
+        .slot-info {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .slot-info.valid {
+            color: #11998e;
+            font-weight: 600;
+        }
+
+        .slot-info.error {
+            color: #dc3545;
+        }
+
+        .chart-section {
+            margin-top: 30px;
+        }
+
+        .legend-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        .back-link {
+            margin-bottom: 20px;
+        }
+
+        .back-link a {
+            color: #11998e;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+
+        .btn.compare {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .btn.clear {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn.clear:hover {
+            background: #c82333;
+        }
+
+        .actions-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .actions-row .btn {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Compare Personality Results</h1>
+            <p class="subtitle">Overlay up to 5 results on a single chart</p>
+        </header>
+
+        <div class="card">
+            <div class="back-link">
+                <a href="index.html">← Back to Assessment</a>
+            </div>
+
+            <h2>Paste Your Results</h2>
+            <p>Paste JSON data from downloaded personality results. Each person's data will appear in a different color.</p>
+
+            <div class="compare-container">
+                <div class="input-slot" id="slot-1" style="--slot-color: #FF6384;">
+                    <h4>
+                        <span class="color-indicator" style="background: #FF6384;"></span>
+                        Person 1
+                    </h4>
+                    <textarea placeholder="Paste JSON data here..." data-slot="1"></textarea>
+                    <div class="slot-info" id="info-1">Waiting for data...</div>
+                </div>
+
+                <div class="input-slot" id="slot-2" style="--slot-color: #36A2EB;">
+                    <h4>
+                        <span class="color-indicator" style="background: #36A2EB;"></span>
+                        Person 2
+                    </h4>
+                    <textarea placeholder="Paste JSON data here..." data-slot="2"></textarea>
+                    <div class="slot-info" id="info-2">Waiting for data...</div>
+                </div>
+
+                <div class="input-slot" id="slot-3" style="--slot-color: #FFCE56;">
+                    <h4>
+                        <span class="color-indicator" style="background: #FFCE56;"></span>
+                        Person 3
+                    </h4>
+                    <textarea placeholder="Paste JSON data here..." data-slot="3"></textarea>
+                    <div class="slot-info" id="info-3">Waiting for data...</div>
+                </div>
+
+                <div class="input-slot" id="slot-4" style="--slot-color: #4BC0C0;">
+                    <h4>
+                        <span class="color-indicator" style="background: #4BC0C0;"></span>
+                        Person 4
+                    </h4>
+                    <textarea placeholder="Paste JSON data here..." data-slot="4"></textarea>
+                    <div class="slot-info" id="info-4">Waiting for data...</div>
+                </div>
+
+                <div class="input-slot" id="slot-5" style="--slot-color: #9966FF;">
+                    <h4>
+                        <span class="color-indicator" style="background: #9966FF;"></span>
+                        Person 5
+                    </h4>
+                    <textarea placeholder="Paste JSON data here..." data-slot="5"></textarea>
+                    <div class="slot-info" id="info-5">Waiting for data...</div>
+                </div>
+            </div>
+
+            <div class="actions-row">
+                <button id="compare-btn" class="btn compare">Compare Results</button>
+                <button id="clear-btn" class="btn clear">Clear All</button>
+            </div>
+
+            <div class="chart-section" id="chart-section" style="display: none;">
+                <h3>Comparison Chart</h3>
+                <div class="chart-container">
+                    <canvas id="comparison-chart"></canvas>
+                </div>
+                <div class="legend-container" id="legend-container">
+                    <!-- Legend items will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Big Five Personality Assessment for Students | Educational Use Only</p>
+        <p>Based on the OCEAN model of personality psychology</p>
+        <p class="version">Version 3.0</p>
+    </footer>
+
+    <script>
+        // Color configurations for each slot
+        const slotColors = {
+            1: { bg: 'rgba(255, 99, 132, 0.2)', border: '#FF6384', name: 'Person 1' },
+            2: { bg: 'rgba(54, 162, 235, 0.2)', border: '#36A2EB', name: 'Person 2' },
+            3: { bg: 'rgba(255, 206, 86, 0.2)', border: '#FFCE56', name: 'Person 3' },
+            4: { bg: 'rgba(75, 192, 192, 0.2)', border: '#4BC0C0', name: 'Person 4' },
+            5: { bg: 'rgba(153, 102, 255, 0.2)', border: '#9966FF', name: 'Person 5' }
+        };
+
+        let chart = null;
+        const parsedData = {};
+
+        // Validate and parse JSON data
+        function validateData(jsonString, slot) {
+            const infoElement = document.getElementById(`info-${slot}`);
+            const slotElement = document.getElementById(`slot-${slot}`);
+
+            if (!jsonString.trim()) {
+                infoElement.textContent = 'Waiting for data...';
+                infoElement.className = 'slot-info';
+                slotElement.classList.remove('active');
+                delete parsedData[slot];
+                return false;
+            }
+
+            try {
+                const data = JSON.parse(jsonString);
+
+                // Validate structure
+                if (!data.scores ||
+                    typeof data.scores.openness !== 'number' ||
+                    typeof data.scores.conscientiousness !== 'number' ||
+                    typeof data.scores.extraversion !== 'number' ||
+                    typeof data.scores.agreeableness !== 'number' ||
+                    typeof data.scores.neuroticism !== 'number') {
+                    throw new Error('Invalid data structure');
+                }
+
+                // Store parsed data
+                parsedData[slot] = data;
+                slotColors[slot].name = data.name || `Person ${slot}`;
+
+                infoElement.textContent = `✓ Valid data for ${data.name || 'Unknown'} (${new Date(data.date).toLocaleDateString()})`;
+                infoElement.className = 'slot-info valid';
+                slotElement.classList.add('active');
+                return true;
+
+            } catch (error) {
+                infoElement.textContent = '✗ Invalid JSON format. Please paste valid personality data.';
+                infoElement.className = 'slot-info error';
+                slotElement.classList.remove('active');
+                delete parsedData[slot];
+                return false;
+            }
+        }
+
+        // Create comparison chart
+        function createComparisonChart() {
+            const chartSection = document.getElementById('chart-section');
+            const legendContainer = document.getElementById('legend-container');
+
+            const validSlots = Object.keys(parsedData);
+
+            if (validSlots.length === 0) {
+                alert('Please paste at least one valid JSON result to compare.');
+                return;
+            }
+
+            // Build datasets
+            const datasets = [];
+            legendContainer.innerHTML = '';
+
+            validSlots.forEach(slot => {
+                const data = parsedData[slot];
+                const colors = slotColors[slot];
+
+                datasets.push({
+                    label: colors.name,
+                    data: [
+                        data.scores.openness,
+                        data.scores.conscientiousness,
+                        data.scores.extraversion,
+                        data.scores.agreeableness,
+                        data.scores.neuroticism
+                    ],
+                    backgroundColor: colors.bg,
+                    borderColor: colors.border,
+                    borderWidth: 3,
+                    pointBackgroundColor: colors.border,
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: colors.border,
+                    pointRadius: 6,
+                    pointHoverRadius: 8
+                });
+
+                // Add to legend
+                const legendItem = document.createElement('div');
+                legendItem.className = 'legend-item';
+                legendItem.innerHTML = `
+                    <span class="color-indicator" style="background: ${colors.border};"></span>
+                    <span>${colors.name}</span>
+                `;
+                legendContainer.appendChild(legendItem);
+            });
+
+            // Create chart
+            const ctx = document.getElementById('comparison-chart').getContext('2d');
+
+            if (chart) {
+                chart.destroy();
+            }
+
+            chart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        'Openness',
+                        'Conscientiousness',
+                        'Extraversion',
+                        'Agreeableness',
+                        'Neuroticism'
+                    ],
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 100,
+                            min: 0,
+                            ticks: {
+                                stepSize: 20,
+                                font: { size: 12 }
+                            },
+                            pointLabels: {
+                                font: { size: 14, weight: 'bold' }
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false // We use custom legend
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label} - ${context.label}: ${context.raw.toFixed(1)}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            chartSection.style.display = 'block';
+            chartSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Clear all inputs
+        function clearAll() {
+            for (let i = 1; i <= 5; i++) {
+                document.querySelector(`textarea[data-slot="${i}"]`).value = '';
+                validateData('', i);
+            }
+            document.getElementById('chart-section').style.display = 'none';
+            if (chart) {
+                chart.destroy();
+                chart = null;
+            }
+        }
+
+        // Attach event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            // Validate on input change
+            for (let i = 1; i <= 5; i++) {
+                const textarea = document.querySelector(`textarea[data-slot="${i}"]`);
+                textarea.addEventListener('input', () => {
+                    validateData(textarea.value, i);
+                });
+            }
+
+            // Compare button
+            document.getElementById('compare-btn').addEventListener('click', createComparisonChart);
+
+            // Clear button
+            document.getElementById('clear-btn').addEventListener('click', clearAll);
+        });
+    </script>
+</body>
+</html>
