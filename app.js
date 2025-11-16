@@ -230,13 +230,13 @@ class PersonalityAssessment {
                         this.results.agreeableness,
                         this.results.neuroticism
                     ],
-                    backgroundColor: 'rgba(102, 126, 234, 0.2)',
-                    borderColor: '#667eea',
+                    backgroundColor: 'rgba(17, 153, 142, 0.2)',
+                    borderColor: '#11998e',
                     borderWidth: 3,
-                    pointBackgroundColor: '#667eea',
+                    pointBackgroundColor: '#11998e',
                     pointBorderColor: '#fff',
                     pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: '#667eea',
+                    pointHoverBorderColor: '#11998e',
                     pointRadius: 6,
                     pointHoverRadius: 8
                 }]

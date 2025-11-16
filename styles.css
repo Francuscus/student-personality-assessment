@@ -8,7 +8,7 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
     line-height: 1.6;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
     min-height: 100vh;
     color: #333;
 }
@@ -47,7 +47,7 @@ header h1 {
 }
 
 .card h2 {
-    color: #667eea;
+    color: #11998e;
     margin-bottom: 20px;
     font-size: 1.8rem;
 }
@@ -84,7 +84,7 @@ header h1 {
 }
 
 .trait-list strong {
-    color: #667eea;
+    color: #11998e;
     font-size: 1.3rem;
 }
 
@@ -93,11 +93,11 @@ header h1 {
     padding: 20px;
     border-radius: 10px;
     margin: 20px 0;
-    border-left: 4px solid #667eea;
+    border-left: 4px solid #11998e;
 }
 
 .info-box h3 {
-    color: #667eea;
+    color: #11998e;
     margin-bottom: 10px;
 }
 
@@ -114,13 +114,13 @@ header h1 {
 }
 
 .btn.primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
     color: white;
 }
 
 .btn.primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 5px 15px rgba(17, 153, 142, 0.4);
 }
 
 .btn.primary:disabled {
@@ -167,7 +167,7 @@ header h1 {
 
 .form-group input:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #11998e;
 }
 
 /* Progress Bar */
@@ -184,7 +184,7 @@ header h1 {
 }
 
 .progress-fill {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
     height: 100%;
     width: 0%;
     transition: width 0.5s ease;
@@ -205,7 +205,7 @@ header h1 {
 .trait-indicator {
     display: inline-block;
     padding: 5px 15px;
-    background: #667eea;
+    background: #11998e;
     color: white;
     border-radius: 20px;
     font-size: 0.9rem;
@@ -251,13 +251,13 @@ header h1 {
 }
 
 .scale-btn:hover {
-    border-color: #667eea;
+    border-color: #11998e;
     transform: scale(1.1);
 }
 
 .scale-btn.selected {
-    background: #667eea;
-    border-color: #667eea;
+    background: #11998e;
+    border-color: #11998e;
     color: white;
     transform: scale(1.15);
 }
@@ -310,7 +310,7 @@ header h1 {
 .trait-score {
     font-size: 2rem;
     font-weight: 700;
-    color: #667eea;
+    color: #11998e;
     margin-bottom: 10px;
 }
 
@@ -359,6 +359,16 @@ footer {
 footer p {
     margin: 5px 0;
     font-size: 0.9rem;
+}
+
+footer .version {
+    font-weight: bold;
+    font-size: 1rem;
+    margin-top: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 20px;
 }
 
 /* Responsive Design */
